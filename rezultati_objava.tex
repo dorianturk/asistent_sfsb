@@ -1,0 +1,76 @@
+\documentclass[12pt]{memoir}
+
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{comment}
+\usepackage{csvsimple}
+\usepackage{multirow}
+\usepackage{longtable}
+
+\geometry{
+  a4paper,  
+  height=22cm,      % height of the text block
+  width=18cm,       % width of the text block
+  top=110pt,        % distance of the text block from the top of the page
+  headheight=48pt, % height for the header block
+  headsep=24pt,    % distance from the header block to the text block
+  heightrounded,   % ensure an integer number of lines
+  %showframe,       % show the main blocks
+  verbose,         % show the values of the parameters in the log file
+}
+
+\pagestyle{fancy}
+\fancyhf{}% Clear all headers/footers
+\renewcommand{\headrulewidth}{0pt}% Header rule width
+\renewcommand{\footrulewidth}{0pt}% No footer rule
+
+
+\fancyhead[L]{% Left header
+\rule[-1.75\baselineskip]{0pt}{0pt}% Strut to ensure a 1/4 \baselineskip between image and header rule
+  \includegraphics[height=4\baselineskip,valign=c]{slike/logo_sfsb}% Image
+  \quad% Space
+  \begin{tabular}{@{}l}
+    \footnotesize Sveučilište u Slavonskom Brodu \\ 
+	STROJARSKI FAKULTET U SLAVONSKOM BRODU \\
+	Zavod za strojarske konstrukcije \\
+	\tiny University of Slavonski Brod, Mechanical Engineering Faculty in Slavonski Brod, Department for Mechanical Design
+  \end{tabular}
+}
+\setlength{\headheight}{4.5\baselineskip}% To accommodate new oversized header
+
+
+\begin{document}
+\begin{center}
+\large\textbf{Rezultati ispita}\\[24pt]
+\end{center}
+
+\noindent Kolegij: \textbf{Mehanika I} \hfill Datum ispita: \textbf{07.07.2022.}
+\newline
+\rule{0pt}{0pt}\hrulefill
+\newline \newline
+\textbf{Napomene:}
+\begin{itemize}
+	\item Uvid u rezultate moguće je obaviti u uredu 401, 8.7.2022., petak, uz prethodnu najavu e-mailom na dturk@unisb.hr.
+	\item Studenti koji su ostvarili 30 ili više bodova pristupaju usmenome dijelu ispita.
+\end{itemize}
+\textbf{Rezultati:}
+
+\begin{center}
+%\small
+\begin{longtable}{|r|c|c|c|c|c|c|c|}\cline{8-8}%
+	\multicolumn{7}{c|}{} & \multicolumn{1}{c|}{}\\
+	\multicolumn{7}{c|}{} & \multicolumn{1}{c|}{\multirow{3}{10em}[2.45em]{\center {UKUPNO\\ BODOVA PISMENI\\ (maks. 65)}}}\\
+	\cline{1-7}
+	& JMBAG & Z1 & Z2 & Z3 & Z4 & Z5 & \\\hline\hline
+	
+\csvreader[
+	late after line = \\\hline
+	]{grade.csv}%
+	{JMBAG=\jmbag, Z1=\z, Z2=\zz, Z3=\zzz, Z4=\zzzz, Z5=\zzzzz, UKUPNO=\ukupno}{%
+	\thecsvrow & \jmbag & \z & \zz & \zzz & \zzzz & \zzzzz & \ukupno
+}%
+\end{longtable}
+\end{center}
+
+\end{document}
